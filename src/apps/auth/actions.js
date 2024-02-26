@@ -93,17 +93,17 @@ export const verifyEmail = (tokens) => async (dispatch) => {
 
 export const login = (loginInput) => async (dispatch) => {
   try {
-    const { data } = await axios.post(`${API_URL}/auth/login`, loginInput, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    // console.log("login data-----------", data);
-    setAuthHeader(data);
-    sessionStorage.setItem("user", JSON.stringify(data));
-    dispatch(setUser(data.storeData));
-    sessionStorage.setItem("activeModel", "gpt");
-    dispatch(setActiveModel("gpt"));
+    // const { data } = await axios.post(`${API_URL}/auth/login`, loginInput, {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // });
+    // // console.log("login data-----------", data);
+    // setAuthHeader(data);
+    // sessionStorage.setItem("user", JSON.stringify(data));
+    // dispatch(setUser(data.storeData));
+    // sessionStorage.setItem("activeModel", "gpt");
+    // dispatch(setActiveModel("gpt"));
 
     window.location = "/";
   } catch (error) {

@@ -23,9 +23,9 @@ function App() {
             exact
             path="/"
             element={
-              <RequireAuth>
-                <Home />
-              </RequireAuth>
+              // <RequireAuth>
+              <Home />
+              // </RequireAuth>
             }
           />
           <Route path="/login" element={<Login />} />

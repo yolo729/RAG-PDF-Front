@@ -29,4 +29,4 @@ export const EMAIL_EXIST_MSG = "This email is already exist!";
 export const UNKNOWN_MSG = "Unkown error!";
 
 //title
-export const AGENT_TITLE = "IYKYK Agent";
+export const AGENT_TITLE = "GPT";

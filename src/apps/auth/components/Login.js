@@ -29,7 +29,7 @@ const Login = () => {
       email: "",
       password: "",
     },
-    validationSchema: loginSchema,
+    // validationSchema: loginSchema,
     onSubmit: (values) => {
       onSubmit(values);
     },
