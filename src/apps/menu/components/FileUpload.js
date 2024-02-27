@@ -239,6 +239,7 @@ const FileUpload = () => {
             </label>
             <input
               ref={fileRef}
+              accept="application/pdf"
               type="file"
               onChange={handleUploadFile}
               id="customFile"

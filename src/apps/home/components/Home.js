@@ -118,20 +118,15 @@ const Home = () => {
               />
             </div>
           </div>
-          {currentPage === "" ? (
-            <Chat
-              setIsMenuOpen={setIsMenuOpen}
-              isMenuOpen={isMenuOpen}
-              activeChat={activeChat}
-              setActiveChat={setActiveChat}
-              setQueries={setQueries}
-              questionList={questionList}
-              setQuestionList={setQuestionList}
-            />
-          ) : (
-            <FileUpload setCurrentPage={setCurrentPage} />
-          )}
-          {/* </div> */}
+          <Chat
+            setIsMenuOpen={setIsMenuOpen}
+            isMenuOpen={isMenuOpen}
+            activeChat={activeChat}
+            setActiveChat={setActiveChat}
+            setQueries={setQueries}
+            questionList={questionList}
+            setQuestionList={setQuestionList}
+          />
         </div>
       </div>
     </>
