@@ -4,7 +4,6 @@ import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer, toast } from "react-toastify";
 import { generateChat } from "../apis";
 import "../style.css";
-import { useSelector } from "react-redux";
 
 function Chat({
   activeChat,
@@ -13,9 +12,6 @@ function Chat({
   questionList,
   setQuestionList,
 }) {
-  const theme = useSelector((store) => store.setting.isDark);
-
-  const activeModel = useSelector((store) => store.auth.activeModel);
   const [question, setQuestion] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +27,7 @@ function Chat({
     }
     let payload = {
       question: question,
-      modelId: activeModel,
+      modelId: "activeModel",
     };
 
     if (!activeChat.id) {
@@ -100,14 +96,12 @@ function Chat({
           <div
             className={`${
               (questionList.length > 0 || activeChat.queries.length > 0) &&
-              (theme === true ? "bg-chat_back text-white" : "bg-gray-100")
+              "bg-chat_back text-white"
             } rounded overflow-y-scroll h-[70vh] md:h-[75vh] w-full md:w-[70%] mx-auto md:p-0 p-4 flex flex-col`}
           >
             {questionList.length === 0 ? (
               <div
-                className={`text-xl font-bold flex justify-center ${
-                  theme === true ? "text-[#ececf1]" : "text-black"
-                }`}
+                className={`text-xl font-bold flex justify-center text-[#ececf1]`}
               >
                 How can I help today?
               </div>
@@ -122,37 +116,18 @@ function Chat({
                 >
                   <div className="flex flex-col items-start">
                     <p className="text-gray font-bold">{m && "You"}</p>
-                    <p
-                      className={`${
-                        theme === true ? "text-gray-300" : "text-black"
-                      }`}
-                    >
-                      {m}
-                    </p>
+                    <p className={`text-gray-300`}>{m}</p>
 
-                    <p
-                      className={`${
-                        theme === true ? "text-gray-300" : "text-black"
-                      } font-bold`}
-                    >
-                      {m && "Answer"}
-                    </p>
+                    <p className={`text-gray-300 font-bold`}>{m && "Answer"}</p>
                     {isLoading && questionList.length - 1 === index && (
                       <p
-                        className={`${
-                          theme === true ? "text-gray-300" : "text-black"
-                        } text-sm animate-pulse text-center`}
+                        className={`text-gray-300 text-sm animate-pulse text-center`}
                       >
                         Loading...
                       </p>
                     )}
                     {activeChat.queries.map((ans, index) => (
-                      <p
-                        key={index}
-                        className={`${
-                          theme === true ? "text-gray-300" : "text-black"
-                        }`}
-                      >
+                      <p key={index} className={`text-gray-300`}>
                         {m === ans.question && ans.solution}
                       </p>
                     ))}
@@ -210,9 +185,7 @@ function Chat({
               value={question}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
-              className={`${
-                theme === true ? "text-gray-300" : "text-black"
-              } h-full w-full p-2 outline-none bg-inherit`}
+              className={`text-gray-300 h-full w-full p-2 outline-none bg-inherit`}
               type="text"
               placeholder="Type a message..."
             />

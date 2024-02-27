@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
 
 import Sidebar from "./Sidebar";
 import Chat from "../../chat/components/Chat";
-import ChangePassword from "../../menu/components/ChangePassword";
-import LLMTemperature from "../../menu/components/LLMTemperature";
-import Profile from "../../menu/components/Profile";
 import FileUpload from "../../menu/components/FileUpload";
-import LLMKey from "../../menu/components/LLMKey";
-import SetPrompt from "../../menu/components/SetPrompt";
-import UpgradeGPT from "../../menu/components/UpgradeGPT";
 import "../style.css";
 
 import { getAllQueries } from "../apis";
@@ -25,8 +18,6 @@ const Home = () => {
   const [isCurrentMenuOpen, setIsCurrentMenuOpen] = useState(false);
   const [queries, setQueries] = useState([]);
   const [activeChat, setActiveChat] = useState({ queries: [] });
-
-  const theme = useSelector((store) => store.setting.isDark);
 
   const [questionList, setQuestionList] = useState([]);
 
@@ -113,18 +104,10 @@ const Home = () => {
         </div>
 
         {/* Right side content */}
-        <div
-          className={`w-full md:w-[80%] h-screen md:h-screen ${
-            theme === true ? "bg-chat_back" : "bg-gray-100"
-          }`}
-        >
+        <div className={`w-full md:w-[80%] h-screen md:h-screen bg-chat_back`}>
           {/* <div className="bg-[#f4f4f4] h-screen flex flex-col justify-between mb-2"> */}{" "}
           <div className="flex flex-row justify-between">
-            <h1
-              className={`font-bold text-xl ${
-                theme === true ? "text-[#ececf1]" : "text-black"
-              } p-4`}
-            >
+            <h1 className={`font-bold text-xl text-[#ececf1] p-4`}>
               {AGENT_TITLE}
             </h1>
             <div className="md:hidden p-4 cursor-pointer">
@@ -146,29 +129,7 @@ const Home = () => {
               setQuestionList={setQuestionList}
             />
           ) : (
-            <>
-              {currentPage === "Change Password" && (
-                <ChangePassword setCurrentPage={setCurrentPage} />
-              )}
-              {currentPage === "Upgrade GPT" && (
-                <UpgradeGPT setCurrentPage={setCurrentPage} />
-              )}
-              {currentPage === "LLM Temperature" && (
-                <LLMTemperature setCurrentPage={setCurrentPage} />
-              )}
-              {currentPage === "Profile" && (
-                <Profile setCurrentPage={setCurrentPage} />
-              )}
-              {currentPage === "LLM Key" && (
-                <LLMKey setCurrentPage={setCurrentPage} />
-              )}
-              {currentPage === "File Upload" && (
-                <FileUpload setCurrentPage={setCurrentPage} />
-              )}
-              {currentPage === "System Prompt" && (
-                <SetPrompt setCurrentPage={setCurrentPage} />
-              )}
-            </>
+            <FileUpload setCurrentPage={setCurrentPage} />
           )}
           {/* </div> */}
         </div>

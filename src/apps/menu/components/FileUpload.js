@@ -12,14 +12,9 @@ import {
   retrainAllModels,
   getActiveModelApi,
 } from "../apis";
-import { setActiveModel } from "../../auth/actions";
-import { useDispatch, useSelector } from "react-redux";
 
 const FileUpload = () => {
   const fileRef = useRef();
-  const dispatch = useDispatch();
-  const activeModel = useSelector((store) => store.auth.activeModel);
-  const theme = useSelector((store) => store.setting.isDark);
   // console.log(activeModel);
   const [files, setFiles] = useState([]);
   const [models, setModels] = useState([]);
@@ -41,16 +36,6 @@ const FileUpload = () => {
     handleGetAllFiles();
     // handleGetActiveModel();
   }, []);
-
-  const handleGetActiveModel = () => {
-    try {
-      const res = getActiveModelApi();
-
-      dispatch(setActiveModel(res.activeModel));
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
 
   const handleGetAllFiles = async () => {
     try {
@@ -225,7 +210,6 @@ const FileUpload = () => {
     try {
       const res = await setActiveModelApi(id);
       // console.log("res all active model ", res.data);
-      dispatch(setActiveModel(id));
     } catch (e) {
       console.log(e.message);
     }
@@ -235,13 +219,7 @@ const FileUpload = () => {
     <div className="aroundFileUploadTable">
       {isLoading && <div className="coverSpinner"></div>}
       <div className="firstSection">
-        <div
-          className={`font-bold text-xl ${
-            theme === true ? "text-gray-100" : "text-black"
-          }  p-2`}
-        >
-          All files
-        </div>
+        <div className={`font-bold text-xl p-2 text-white`}>All files</div>
         <div
           style={{
             display: "flex",
@@ -254,11 +232,7 @@ const FileUpload = () => {
         >
           <>
             <label
-              className={` ${
-                theme === true
-                  ? "bg-white text-black hover:bg-gray-300"
-                  : "bg-black text-white"
-              }  p-2 text-base font-bold rounded cursor-pointer`}
+              className={`bg-white text-black hover:bg-gray-300 p-2 text-base font-bold rounded cursor-pointer`}
               htmlFor="customFile"
             >
               Upload new file
@@ -286,7 +260,7 @@ const FileUpload = () => {
                   <select
                     id="dropdown"
                     className="w-30 border-2 border-black-900 p-2 rounded-lg mr-1 cursor-pointer"
-                    value={activeModel}
+                    value={1}
                     onChange={handleDropdownChange}
                   >
                     <option value="no">Select Version</option>
@@ -300,11 +274,7 @@ const FileUpload = () => {
                 </>
               ) : (
                 <button
-                  className={` ${
-                    theme === true
-                      ? "bg-white text-black hover:bg-gray-300"
-                      : "bg-black text-white"
-                  }  px-4  py-2 font-bold text-base rounded  mr-2`}
+                  className={`bg-white text-black hover:bg-gray-300 px-4  py-2 font-bold text-base rounded  mr-2`}
                   disabled={files.length ? false : true}
                   onClick={handleRetrainModel}
                 >
@@ -411,9 +381,7 @@ const FileUpload = () => {
         </>
       ) : (
         <div className="noRecordFound">
-          <h2 className={`${theme === true ? "text-gray-100" : "text-black"}`}>
-            No record found
-          </h2>
+          <h2 className="text-gray-100">No record found</h2>
         </div>
       )}
       <ToastContainer />
