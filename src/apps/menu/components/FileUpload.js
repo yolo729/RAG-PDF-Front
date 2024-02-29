@@ -84,7 +84,7 @@ const FileUpload = () => {
     setIsLoading(true);
     setIsRetrained(false);
     try {
-      console.log("filepath----------", input.files);
+      console.log("file upload--------------", input.files);
       const res = await uploadFile(input.files);
       handleGetAllFiles();
       fileRef.current.value = null;
