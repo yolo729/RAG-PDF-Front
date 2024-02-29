@@ -217,6 +217,29 @@ const Sidebar = ({
                         />
                         {item.title}
                       </div>
+                    ) : item.title === "Theme Mode" ? (
+                      <div className="cursor-pointer flex">
+                        <FontAwesomeIcon
+                          icon={item.icon}
+                          fontSize="1em"
+                          className="icon-style px-3 "
+                        />
+                        {item.title}
+                        {
+                          <label
+                            htmlFor="toggle-example"
+                            className="flex items-center cursor-pointer relative ml-4 mb-0"
+                          >
+                            <input
+                              type="checkbox"
+                              id="toggle-example"
+                              className="sr-only"
+                              onChange={handleChangeTheme}
+                            />
+                            <div className="toggle-bg bg-gray-200 border-2 border-gray-200 h-6 w-11 rounded-full"></div>
+                          </label>
+                        }
+                      </div>
                     ) : (
                       <div
                         className="cursor-pointer flex"
@@ -231,20 +254,6 @@ const Sidebar = ({
                           className="icon-style px-3 "
                         />
                         {item.title}
-                        {item.title === "Theme Mode" && (
-                          <label
-                            htmlFor="toggle-example"
-                            className="flex items-center cursor-pointer relative ml-4 mb-0"
-                          >
-                            <input
-                              type="checkbox"
-                              id="toggle-example"
-                              className="sr-only"
-                              onChange={handleChangeTheme}
-                            />
-                            <div className="toggle-bg bg-gray-200 border-2 border-gray-200 h-6 w-11 rounded-full"></div>
-                          </label>
-                        )}
                       </div>
                     )}
                   </div>
