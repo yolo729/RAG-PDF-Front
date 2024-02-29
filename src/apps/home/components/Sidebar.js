@@ -29,42 +29,20 @@ const leftMenuItems = [
     title: "Change Password",
     icon: faLock,
   },
-  // {
-  //   title: "Upgrade GPT",
-  //   icon: faStar,
-  // },
+
   {
-    title: "Setting",
-    icon: faGear,
+    title: "File Upload",
+    icon: faFileArrowUp,
+  },
+
+  {
+    title: "Theme Mode",
+    icon: faPalette,
   },
 
   {
     title: "Logout",
     icon: faArrowRightFromBracket,
-  },
-];
-
-const settingMenu = [
-  {
-    title: "File Upload",
-    icon: faFileArrowUp,
-  },
-  // {
-  //   title: "LLM Key",
-  //   icon: faKey,
-  // },
-  // {
-  //   title: "LLM Temperature",
-  //   icon: faTemperatureThreeQuarters,
-  // },
-
-  // {
-  //   title: "System Prompt",
-  //   icon: faComment,
-  // },
-  {
-    title: "Theme Mode",
-    icon: faPalette,
   },
 ];
 
@@ -225,114 +203,7 @@ const Sidebar = ({
                       theme === true ? "text-[#fff]" : "text-black"
                     } text-sm font-semibold rounded-lg md:mt-0  focus:outline-none focus:shadow-outline`}
                   >
-                    {item.title === "Setting" ? (
-                      <div className="cursor-pointer">
-                        <div
-                          className="flex items-center"
-                          onClick={() => setIsSettingOpen(!isSettingOpen)}
-                        >
-                          <FontAwesomeIcon
-                            icon={item.icon}
-                            fontSize="1em"
-                            className="icon-style px-3"
-                          />
-                          <div
-                            className={`flex flex-row justify-between items-center w-full cursor-pointer ${
-                              theme === true ? "text-[#fff]" : "text-black"
-                            } `}
-                          >
-                            {item.title}
-                            {!isSettingOpen ? (
-                              <FontAwesomeIcon
-                                icon={faAngleDown}
-                                fontSize="1em"
-                                className="icon-style"
-                              />
-                            ) : (
-                              <FontAwesomeIcon
-                                icon={faAngleUp}
-                                fontSize="1em"
-                                className="icon-style"
-                              />
-                            )}
-                          </div>
-                        </div>
-
-                        {/* setting submenu */}
-                        {isSettingOpen &&
-                          settingMenu.map((item, i) => {
-                            if (item.title === "Theme Mode") {
-                              return (
-                                <div
-                                  className={`flex flex-row py-2 rounded-md w-full cursor-pointer ${
-                                    theme === true
-                                      ? "hover:bg-gray-500"
-                                      : "hover:bg-gray-100"
-                                  } `}
-                                  key={i}
-                                >
-                                  <div
-                                    className={`flex justify-center  items-center block px-3 py-2 mt-2 ${
-                                      theme === true
-                                        ? "text-[#fff]"
-                                        : "text-black"
-                                    } text-sm font-semibold rounded-lg md:mt-0  focus:outline-none focus:shadow-outline`}
-                                  >
-                                    <FontAwesomeIcon
-                                      icon={item.icon}
-                                      fontSize="1em"
-                                      className="icon-style px-3"
-                                    />
-                                    {item.title}
-                                    <label
-                                      htmlFor="toggle-example"
-                                      className="flex items-center cursor-pointer relative ml-4 mb-0"
-                                    >
-                                      <input
-                                        type="checkbox"
-                                        id="toggle-example"
-                                        className="sr-only"
-                                        onChange={handleChangeTheme}
-                                      />
-                                      <div className="toggle-bg bg-gray-200 border-2 border-gray-200 h-6 w-11 rounded-full"></div>
-                                    </label>
-                                  </div>
-                                </div>
-                              );
-                            } else {
-                              return (
-                                <div
-                                  className={`flex flex-row py-2 rounded-md w-full  cursor-pointer ${
-                                    theme === true
-                                      ? "hover:bg-gray-500"
-                                      : "hover:bg-gray-100"
-                                  }`}
-                                  key={i}
-                                  onClick={() => {
-                                    setCurrentPage(item.title);
-                                    setIsMenuOpen && setIsMenuOpen(false);
-                                  }}
-                                >
-                                  <div
-                                    className={`block px-3 py-2 mt-2 ${
-                                      theme === true
-                                        ? "text-[#fff]"
-                                        : "text-black"
-                                    } text-sm font-semibold rounded-lg md:mt-0  focus:outline-none focus:shadow-outline`}
-                                  >
-                                    <FontAwesomeIcon
-                                      icon={item.icon}
-                                      fontSize="1em"
-                                      className="icon-style px-3"
-                                    />
-                                    {item.title}
-                                  </div>
-                                </div>
-                              );
-                            }
-                          })}
-                      </div>
-                    ) : item.title === "Logout" ? (
+                    {item.title === "Logout" ? (
                       <div
                         className={`cursor-pointer }`}
                         onClick={() => {
@@ -348,7 +219,7 @@ const Sidebar = ({
                       </div>
                     ) : (
                       <div
-                        className="cursor-pointer"
+                        className="cursor-pointer flex"
                         onClick={() => {
                           setCurrentPage(item.title);
                           setIsMenuOpen && setIsMenuOpen(false);
@@ -360,6 +231,20 @@ const Sidebar = ({
                           className="icon-style px-3 "
                         />
                         {item.title}
+                        {item.title === "Theme Mode" && (
+                          <label
+                            htmlFor="toggle-example"
+                            className="flex items-center cursor-pointer relative ml-4 mb-0"
+                          >
+                            <input
+                              type="checkbox"
+                              id="toggle-example"
+                              className="sr-only"
+                              onChange={handleChangeTheme}
+                            />
+                            <div className="toggle-bg bg-gray-200 border-2 border-gray-200 h-6 w-11 rounded-full"></div>
+                          </label>
+                        )}
                       </div>
                     )}
                   </div>

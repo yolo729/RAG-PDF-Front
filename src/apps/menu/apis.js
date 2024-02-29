@@ -17,9 +17,9 @@ export const updatePassword = (values) => {
 };
 
 // upload file
-export const uploadFile = (file) => {
+export const uploadFile = (files) => {
   const formData = new FormData();
-  formData.append("file", file);
+  formData.append("files", files);
   const config = {
     headers: {
       "content-type": "multipart/form-data",

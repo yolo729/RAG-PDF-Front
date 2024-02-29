@@ -39,7 +39,6 @@ const FileUpload = () => {
 
   useEffect(() => {
     handleGetAllFiles();
-    // handleGetActiveModel();
   }, []);
 
   const handleGetActiveModel = () => {
@@ -85,7 +84,8 @@ const FileUpload = () => {
     setIsLoading(true);
     setIsRetrained(false);
     try {
-      const res = await uploadFile(input.files[0]);
+      console.log("filepath----------", input.files);
+      const res = await uploadFile(input.files);
       handleGetAllFiles();
       fileRef.current.value = null;
       toast.success("Upload successful", {
@@ -265,10 +265,12 @@ const FileUpload = () => {
             </label>
             <input
               ref={fileRef}
+              multiple
               type="file"
               onChange={handleUploadFile}
               id="customFile"
               style={{ visibility: "hidden", height: "0px", width: "0px" }}
+              accept=".pdf, .txt, .md"
             />
           </>
           {files.length > 0 && (
