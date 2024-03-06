@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer, toast } from "react-toastify";
 import { generateChat } from "../apis";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import "../style.css";
 import { useSelector } from "react-redux";
 
@@ -62,16 +64,19 @@ function Chat({
       })
       .catch((err) => {
         console.log("error ", err);
-        toast("Something went wrong. Please check retrain model status", {
-          position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
+        toast(
+          "You have some invalid prompts, please remove files uploaded last from your local DB",
+          {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          }
+        );
         setIsLoading(false);
       });
   };
@@ -114,6 +119,7 @@ function Chat({
             ) : (
               <></>
             )}
+
             {questionList.length > 0 &&
               questionList.map((m, index) => (
                 <div
@@ -153,7 +159,9 @@ function Chat({
                           theme === true ? "text-gray-300" : "text-black"
                         }`}
                       >
-                        {m === ans.question && ans.solution}
+                        <Markdown remarkPlugins={[remarkGfm]}>
+                          {m === ans.question && ans.solution}
+                        </Markdown>
                       </p>
                     ))}
                   </div>
