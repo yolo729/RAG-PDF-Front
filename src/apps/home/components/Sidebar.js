@@ -31,7 +31,7 @@ const leftMenuItems = [
   },
 
   {
-    title: "File Upload",
+    title: "Retrain Modal",
     icon: faFileArrowUp,
   },
 

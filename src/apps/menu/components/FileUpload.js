@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { ToastContainer, toast } from "react-toastify";
-import { getAllFiles, uploadFile, deleteModel } from "../apis";
+import { getAllFiles, retrainAllModels } from "../apis";
 import { useSelector } from "react-redux";
 
 const FileUpload = () => {
@@ -11,7 +11,7 @@ const FileUpload = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
-  const [PER_PAGE, setPER_PAGE] = useState(6);
+  const [PER_PAGE, setPER_PAGE] = useState(10);
 
   const handlePageClick = ({ selected: selectedPage }) => {
     setCurrentPage(selectedPage);
@@ -26,6 +26,7 @@ const FileUpload = () => {
 
   const handleGetAllFiles = async () => {
     try {
+      setIsLoading(true);
       const res = await getAllFiles();
       setFiles(res.data.files);
       setTimeout(() => {
@@ -37,47 +38,13 @@ const FileUpload = () => {
     }
   };
 
-  const handleUploadFile = async ({ currentTarget: input }) => {
-    setIsLoading(true);
+  const handleRetrainModel = async () => {
     try {
-      console.log("file upload--------------", input.files);
-      const res = await uploadFile(input.files);
+      setIsLoading(true);
+      const res = await retrainAllModels(files);
+      // console.log("res retrain  ", res.data);
       handleGetAllFiles();
-      fileRef.current.value = null;
-      toast.success("Upload successful", {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    } catch (e) {
-      setIsLoading(false);
-      toast.error("Something Went wrong!", {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
-      console.log(e.message);
-    }
-  };
-
-  const handleDeleteFile = async (id, path) => {
-    setIsLoading(true);
-    setIsDelete(true);
-    try {
-      const res = await deleteModel({ id, path });
-      handleGetAllFiles();
-      fileRef.current.value = null;
-      toast.success("File deleted successfully!", {
+      toast.success("Model retrained successfully", {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -122,27 +89,16 @@ const FileUpload = () => {
             alignItems: "baseline",
           }}
         >
-          <>
-            <label
-              className={` ${
-                theme === true
-                  ? "bg-white text-black hover:bg-gray-300"
-                  : "bg-black text-white"
-              }  p-2 text-base font-bold rounded cursor-pointer`}
-              htmlFor="customFile"
-            >
-              Upload new file
-            </label>
-            <input
-              ref={fileRef}
-              multiple
-              type="file"
-              onChange={handleUploadFile}
-              id="customFile"
-              style={{ visibility: "hidden", height: "0px", width: "0px" }}
-              accept=".pdf, .txt, .md"
-            />
-          </>
+          <button
+            className={` ${
+              theme === true
+                ? "bg-white text-black hover:bg-gray-300"
+                : "bg-black text-white"
+            }  p-2 text-base font-bold rounded cursor-pointer`}
+            onClick={handleRetrainModel}
+          >
+            Retrain
+          </button>
         </div>
       </div>
       {files.length ? (
@@ -152,25 +108,13 @@ const FileUpload = () => {
               <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Title</th>
-                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
-              {files.slice(offset, offset + PER_PAGE).map((file) => (
-                <tr key={file.id}>
-                  <th scope="row">{file.id}</th>
-                  <td>{file.title}</td>
-                  <td className="btn-container">
-                    <span>
-                      <button
-                        onClick={() => handleDeleteFile(file.id, file.path)}
-                        align="center"
-                        className="deleteButton"
-                      >
-                        Delete
-                      </button>
-                    </span>
-                  </td>
+              {files.slice(offset, offset + PER_PAGE).map((file, i) => (
+                <tr key={i}>
+                  <th scope="row">{i + 1 + offset}</th>
+                  <td>{file}</td>
                 </tr>
               ))}
             </tbody>

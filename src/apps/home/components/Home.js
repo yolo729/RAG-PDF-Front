@@ -162,7 +162,7 @@ const Home = () => {
               {currentPage === "LLM Key" && (
                 <LLMKey setCurrentPage={setCurrentPage} />
               )}
-              {currentPage === "File Upload" && (
+              {currentPage === "Retrain Modal" && (
                 <FileUpload setCurrentPage={setCurrentPage} />
               )}
               {currentPage === "System Prompt" && (

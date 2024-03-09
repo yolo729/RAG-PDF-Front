@@ -32,7 +32,7 @@ export const uploadFile = (files) => {
 };
 // retrain model (file)
 export const retrainModel = (files) => {
-  return axios.post(`${API_URL}/user_query/retrainModel`, { files });
+  return axios.post(`${API_URL}/user_query/retrainModel`);
 };
 // retrieve all files api
 export const getAllFiles = (values) => {
