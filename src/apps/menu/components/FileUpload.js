@@ -28,6 +28,7 @@ const FileUpload = () => {
     try {
       setIsLoading(true);
       const res = await getAllFiles();
+      console.log("files-------", res.data);
       setFiles(res.data.files);
       setTimeout(() => {
         setIsLoading(false);
